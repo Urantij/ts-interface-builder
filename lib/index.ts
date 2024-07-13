@@ -48,6 +48,11 @@ export class Compiler {
 
   private getName(id: ts.Node): string {
     const symbol = this.checker.getSymbolAtLocation(id);
+
+    if (symbol?.escapedName === "default") {
+      return symbol.parent.getName().slice(1, -1);
+    }
+    
     return symbol ? symbol.getName() : "unknown";
   }
 
