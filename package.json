@@ -39,6 +39,7 @@
   "files": [
     "dist",
     "bin",
+    "lib",
     "macro.js",
     "macro.d.ts"
   ],
