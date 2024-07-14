@@ -48,11 +48,6 @@ export class Compiler {
 
   private getName(id: ts.Node): string {
     const symbol = this.checker.getSymbolAtLocation(id);
-
-    if (symbol?.escapedName === "default") {
-      return symbol.parent.getName().slice(1, -1);
-    }
-    
     return symbol ? symbol.getName() : "unknown";
   }
 
@@ -201,7 +196,7 @@ export class Compiler {
     return this._formatExport(name, `t.enumtype({\n${members.join("")}})`);
   }
   private _compileInterfaceDeclaration(node: ts.InterfaceDeclaration): string {
-    const name = this.getName(node.name);
+    const name = node.name.escapedText.toString();
     const members = node.members
       .map(n => this.compileNode(n))
       .filter(n => n !== ignoreNode)
