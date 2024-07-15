@@ -196,7 +196,8 @@ export class Compiler {
     return this._formatExport(name, `t.enumtype({\n${members.join("")}})`);
   }
   private _compileInterfaceDeclaration(node: ts.InterfaceDeclaration): string {
-    const name = node.name.escapedText.toString();
+    const type = this.checker.getTypeAtLocation(node);
+    const name = this.checker.typeToString(type);
     const members = node.members
       .map(n => this.compileNode(n))
       .filter(n => n !== ignoreNode)
