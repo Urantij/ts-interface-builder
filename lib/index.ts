@@ -165,7 +165,7 @@ export class Compiler {
     return `t.array(${this.compileNode(node.elementType)})`;
   }
   private _compileTupleTypeNode(node: ts.TupleTypeNode): string {
-    const members = node.elementTypes.map(this.compileNode, this);
+    const members = node.elements.map(this.compileNode, this);
     return `t.tuple(${members.join(", ")})`;
   }
   private _compileRestTypeNode(node: ts.RestTypeNode): string {
